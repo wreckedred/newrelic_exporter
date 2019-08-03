@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: newrelic-exporter
+  namespace: default
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/port: '9112'
+spec:
+  containers:
+  - name: newrelic-exporter
+    image: wreckedreddocker/newrelic-exporter:0.0.3
+    command: ["./newrelic_exporter", "--newrelic.api-key=<NEWRELIC_API_KEY>"]
+    ports:
+    - containerPort: 9112
