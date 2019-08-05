@@ -9,7 +9,15 @@ metadata:
 spec:
   containers:
   - name: newrelic-exporter
-    image: wreckedreddocker/newrelic-exporter:0.0.3
+    image: wreckedreddocker/newrelic-exporter:0.0.5
     command: ["./newrelic_exporter", "--newrelic.api-key=<NEWRELIC_API_KEY>"]
     ports:
     - containerPort: 9112
+    volumeMounts:
+    - name: config-volume
+      mountPath: /config.yml
+      subPath: config.yml
+  volumes:
+  - name: config-volume
+    configMap:
+      name: newrelic-exporter-config
